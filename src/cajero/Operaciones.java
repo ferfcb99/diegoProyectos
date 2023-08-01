@@ -72,6 +72,13 @@ public class Operaciones {
     }
     
     // crear una funcion que agregue al montoTotal una cantidad con el nombre de cantidad
+    
+   public void agregueMonto(int cantidad){
+    this.montoTotal +=cantidad;
+   }
     // crear una funcion que quite al monto total una cantidada con el nomrbe de cantidad
+   public void quitaMonto(int cantidad){
+       this.montoTotal -= cantidad;
+   }
 
 }

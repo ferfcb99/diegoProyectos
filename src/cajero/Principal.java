@@ -1,3 +1,4 @@
+
 package cajero;
 
 public class Principal {
@@ -7,6 +8,11 @@ public class Principal {
         );
         
         System.out.println(comunicador.getNombre());
+ System.out.println("Nombre del titular: " + comunicador.getNombre());
+    System.out.println("Monto total antes de agregar: " + comunicador.getMontoTotal());
+    comunicador.agregueMonto(500);
+    System.out.println("Monto total después de agregar 500: " + comunicador.getMontoTotal());
+      
         
     }
 }
