@@ -133,5 +133,11 @@ public class Operaciones {
         int monto = scanner.nextInt();
         this.agregueMonto(monto);
     }
-
+    public void retiro() {
+        scanner = new Scanner(System.in);
+        System.out.println("Cantidad a retirar: ");
+        int monto = scanner.nextInt();
+        this.quitaMonto(monto);
+        System.out.println("Dinero actual: "+ this.montoTotal);
+        }
 }

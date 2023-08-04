@@ -42,7 +42,7 @@ public class Principal {
                 comunicador.deposito();
 
             } else if (opcion == 4) {
-                System.out.println("Cuatro");
+                comunicador.retiro();
 
             } else if (opcion == 0) {
                 break;
