@@ -39,7 +39,7 @@ public class Nodo {
     }
     
     public void imprimeValor(){
-        System.out.println(this.getValor());
+        System.out.print(this.getValor() + " ");
     }
 
 }
