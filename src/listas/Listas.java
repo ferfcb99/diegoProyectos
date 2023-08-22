@@ -17,6 +17,7 @@ public class Listas {
         nombres.add("Elias"); // true
         nombres.add("Diego"); // false
         nombres.add("Dolores"); // false
+        System.out.println();
         
         //System.out.println(nombres);
         
@@ -30,7 +31,12 @@ public class Listas {
     }
     
     public boolean iniciaConLaLetra(String inicial, String cadena){ // iniciaConLaLetra("M", "Gerardo"); == false
+        if (cadena.contains(inicial)) {
+            return true;
+            
+        }else
+          return  false;
     
-        return true;
+        
     }
 }
