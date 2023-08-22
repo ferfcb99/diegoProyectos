@@ -28,15 +28,31 @@ public class Listas {
             }
         }
         System.out.println(nombresSinA);
+        
+        System.out.println("-----------------");
+        
+        System.out.println(iniciaConLaLetra("G", "Gerardo"));
+        System.out.println(iniciaConLaLetra("D", "Diego"));
+        System.out.println(iniciaConLaLetra("K", "Paola"));
+        System.out.println(iniciaConLaLetra("E", "Eduardo"));
+        
+        
+        
     }
     
-    public boolean iniciaConLaLetra(String inicial, String cadena){ // iniciaConLaLetra("M", "Gerardo"); == false
+    public static boolean iniciaConLaLetra(String inicial, String cadena){ // iniciaConLaLetra("M", "Gerardo"); == false       
+        /*
         if (cadena.contains(inicial)) {
             return true;
-            
         }else
           return  false;
-    
-        
+        */
+        // "Fernando".substring(0,1)
+        String inicialDeLaCadena = cadena.substring(0, 1);
+        // System.out.println("Inicial de la cadena " + inicialDeLaCadena);
+        if(inicial.equals(inicialDeLaCadena)){
+            return true;
+        }
+        return false;
     }
 }

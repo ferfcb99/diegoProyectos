@@ -37,16 +37,13 @@ public class SumaGaussiana {
         return suma;
     }
 
-   public static int sumaEntreNym(int n, int m) {
+    public static int sumaEntreNym(int n, int m) {
         if (n > m) {
-            return 0;  
+            return 0;
         } else {
-            
-            return n + sumaEntreNym(n + 1, m-1);
+            return n + sumaEntreNym(n + 1, m);
         }
     }
-
-    
 
     public static void main(String[] args) {
         SumaGaussiana sumaGaussiana = new SumaGaussiana();
