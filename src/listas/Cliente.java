@@ -70,6 +70,16 @@ public class Cliente {
     }
     
     // realizar una funcion que realize el retiro del cliente
+    public void retiro(){
+     Scanner scanner = new Scanner(System.in);
+        System.out.print("Cantidad a retirar:¨"); 
+        int monto = scanner.nextInt();
+        if(monto > saldo_cliente){
+            System.out.println("No tienes esta cantidad");
+        }else{
+            this.saldo_cliente= getSaldo_cliente() - monto;
+        }
+    }
     
     
     
