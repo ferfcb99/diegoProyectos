@@ -17,10 +17,9 @@ public class Listas {
         nombres.add("Elias"); // true
         nombres.add("Diego"); // false
         nombres.add("Dolores"); // false
-        System.out.println();
         
         //System.out.println(nombres);
-        
+        /*
         for(String nombre : nombres){ // forLoop for(TipoDeDatoDeLaEstructura nombreVariable : estruruaAIterar){}
             if(nombre.contains("a") == false){
                  System.out.println(nombre);
@@ -37,6 +36,14 @@ public class Listas {
         System.out.println(iniciaConLaLetra("E", "Eduardo"));
         
         
+        */
+        
+        String nombre = nombres.get(2);
+        System.out.println(nombre);
+        System.out.println(nombres);
+        
+        nombres.set(2, "Francisco");
+         System.out.println(nombres);
         
     }
     
