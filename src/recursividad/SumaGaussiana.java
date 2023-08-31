@@ -50,7 +50,7 @@ public class SumaGaussiana {
 
         // System.out.println(sumaGaussiana.sumaGaussiana(100));
         //System.out.println(sumaGaussiana.sumaGaussianaRecursiva(100));
-        System.out.println(sumaGaussiana.sumaEntreNym(5, 10));
+        System.out.println(sumaGaussiana.sumaGaussianaRecursiva(100));
     }
 
 }

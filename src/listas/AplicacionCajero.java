@@ -37,11 +37,29 @@ public class AplicacionCajero {
         System.out.println("Ingresa el saldo: ");
         double saldo_cliente = scanner.nextDouble();
 
-        Cliente cliente = new Cliente(this.id_cliente + 1, nombre_cliente, apellido_cliente, cuenta_cliente, saldo_cliente);
+        if (validaCadenaNullOrEmpty(nombre_cliente) == true && validaCadenaNullOrEmpty(apellido_cliente) == true
+                && validaCadenaNullOrEmpty(cuenta_cliente) == true
+                && validaEntradaSaldo(saldo_cliente) == true) {
+            // null and empty
+            Cliente cliente = new Cliente(this.id_cliente + 1, nombre_cliente, apellido_cliente, cuenta_cliente, saldo_cliente);
+            this.id_cliente = this.id_cliente + 1;
+            return cliente;
+        }
+        return null;
+    }
 
-        this.id_cliente = this.id_cliente + 1;
+    public boolean validaCadenaNullOrEmpty(String cadena) {
+        if (cadena != null && !cadena.equals("")) {
+            return true;
+        }
+        return false;
+    }
 
-        return cliente;
+    public boolean validaEntradaSaldo(double monto) {
+        if (monto > 0) {
+            return true;
+        }
+        return false;
     }
 
     public void mostrarClientes(List<Cliente> clientes) {
@@ -73,7 +91,7 @@ public class AplicacionCajero {
         mostrarClientes(clientes);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingresa el id del cliente a depositar: ");
-        int id_cliente_operar = scanner.nextInt();
+        int id_cliente_operar = scanner.nextInt(); // 3
 
         Cliente cliente = clientes.get(id_cliente_operar - 1);
         cliente.deposito();
@@ -82,16 +100,28 @@ public class AplicacionCajero {
 
         return clientes;
     }
-    
+
     // crear funcion de retiro
+    public List<Cliente> realizaRetiro(List<Cliente> clientes) {
+        mostrarClientes(clientes);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingresa el id del cliente a retirar: ");
+        int id_cliente_operar = scanner.nextInt();
+
+        Cliente cliente = clientes.get(id_cliente_operar - 1);
+        cliente.retiro();
+
+        clientes.set(id_cliente_operar - 1, cliente);
+        return clientes;
+    }
 
     public static void main(String[] args) {
         AplicacionCajero aplicacionCajero = new AplicacionCajero();
 
         List<Cliente> clientes = new ArrayList<>();
-        clientes.add(new Cliente(1, "Fernando", "Munguia", "456789", 500000));
-        clientes.add(new Cliente(2, "Paola", "Martinez", "65432", 500000));
-        clientes.add(new Cliente(3, "Joselin", "Perez", "76543", 500000));
+        //clientes.add(new Cliente(1, "Fernando", "Munguia", "456789", 500000));
+        //clientes.add(new Cliente(2, "Paola", "Martinez", "65432", 500000));
+        //clientes.add(new Cliente(3, "Joselin", "Perez", "76543", 500000));
 
         int opcionSeleccionada = 0;
 
@@ -99,24 +129,36 @@ public class AplicacionCajero {
             opcionSeleccionada = aplicacionCajero.consultaMenu();
 
             switch (opcionSeleccionada) {
-
                 case 0:
                     aplicacionCajero.mostrarClientes(clientes);
                     break;
-
                 case 1:
                     Cliente cliente = aplicacionCajero.registraCliente();
-                    clientes.add(cliente);
+                    if(cliente != null){
+                        clientes.add(cliente);
+                    }else{
+                        System.out.println("El cliente tiene que tener los datos completos");
+                    }
                     break;
                 case 2:
                     aplicacionCajero.mostrarClientesPorId(clientes);
                     break;
                 case 3:
-                    aplicacionCajero.realizaDeposito(clientes);
-                    break;
+                    if(clientes.size()>0){
+                      aplicacionCajero.realizaDeposito(clientes);
+                     
+                    }else{
+                        System.out.println("No hay clientes disponibles");
+                    }
+                    break; 
                 case 4:
-
-                    break;
+                   if(clientes.size()>0){
+                      aplicacionCajero.realizaRetiro(clientes);
+                     
+                    }else{
+                        System.out.println("No hay clientes disponibles");
+                    }
+                    break; 
                 case 5:
                     System.out.println("Saliendo del sistema...");
                     break;
