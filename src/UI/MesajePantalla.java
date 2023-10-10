@@ -103,6 +103,7 @@ public class MesajePantalla extends javax.swing.JFrame {
             double suma = numeroUno + numeroDos;
             JOptionPane.showMessageDialog(null,"La suma de " + numeroUno + " + " + numeroDos + " es : " + suma);
        } catch (NumberFormatException exception) {
+           exception.printStackTrace();
            JOptionPane.showMessageDialog(this, "Favor de ingresar unicamente valores numericos");
         }
 
