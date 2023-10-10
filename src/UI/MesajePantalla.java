@@ -97,10 +97,15 @@ public class MesajePantalla extends javax.swing.JFrame {
     private void jbSumaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbSumaMouseClicked
         // TODO add your handling code here:
         // validar que solo se sumen numeros
-        double numeroUno = Double.parseDouble(this.numeroUno.getText());
-        double numeroDos = Double.parseDouble(this.numeroDos.getText());
-        double suma = numeroUno + numeroDos;
-        JOptionPane.showMessageDialog(null, "La suma de " + numeroUno + "+"+ numeroDos + "es: " +suma);
+       try {
+            double numeroUno = Double.parseDouble(this.numeroUno.getText());
+            double numeroDos = Double.parseDouble(this.numeroDos.getText());
+            double suma = numeroUno + numeroDos;
+            JOptionPane.showMessageDialog(null,"La suma de " + numeroUno + " + " + numeroDos + " es : " + suma);
+       } catch (NumberFormatException exception) {
+           JOptionPane.showMessageDialog(this, "Favor de ingresar unicamente valores numericos");
+        }
+
     }//GEN-LAST:event_jbSumaMouseClicked
 
     /**
@@ -131,7 +136,7 @@ public class MesajePantalla extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() { 
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MesajePantalla().setVisible(true);
             }
