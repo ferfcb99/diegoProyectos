@@ -2,6 +2,8 @@ package UI;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -12,9 +14,8 @@ public class InterfazDeRegistroDePersonas extends javax.swing.JFrame {
     /**
      * Creates new form InterfazDeRegistroDePersonas
      */
-    
     List<Persona> personas = new ArrayList<>();
-    
+
     public InterfazDeRegistroDePersonas() {
         initComponents();
         setLocationRelativeTo(null);
@@ -42,6 +43,8 @@ public class InterfazDeRegistroDePersonas extends javax.swing.JFrame {
         btnModificar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtPersonas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -80,6 +83,11 @@ public class InterfazDeRegistroDePersonas extends javax.swing.JFrame {
         jPanel1.add(jtfEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 80, 30));
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 90, -1, -1));
 
         btnAgregar.setText("Agregar");
@@ -91,7 +99,38 @@ public class InterfazDeRegistroDePersonas extends javax.swing.JFrame {
         jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, -1, -1));
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 30, -1, -1));
+
+        jtPersonas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "NOMBRE", "APELLIDO", "EDAD", "OCUPACION"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtPersonas);
+        if (jtPersonas.getColumnModel().getColumnCount() > 0) {
+            jtPersonas.getColumnModel().getColumn(1).setResizable(false);
+            jtPersonas.getColumnModel().getColumn(2).setResizable(false);
+            jtPersonas.getColumnModel().getColumn(3).setResizable(false);
+            jtPersonas.getColumnModel().getColumn(4).setResizable(false);
+        }
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 790, 200));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 550));
 
@@ -103,17 +142,82 @@ public class InterfazDeRegistroDePersonas extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfEdadActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        String nombre = jtfNombre.getText();
+        String edad = jtfEdad.getText();
+        String apellido = jftApellido.getText();
+        String ocupacion = jtfOcupacion.getText();
         
-        Integer edad = Integer.parseInt(jtfEdad.getText());
+        // agregar lo necesarioa para que el id (primer atributo) se inserte de forma secuencial
+        Persona persona = new Persona(1, nombre, apellido, Integer.parseInt(edad), ocupacion);
+        agregarPersona(persona);
+        imprimeLista(this.personas);
         
-        if((edad instanceof Integer) && edad != null){
-            System.out.println("Es entero y no nulo");
-        }else{
-            System.out.println("Esta incorrecto");
-        }
-        // validar los campos no nulos y agregar a la lista "Personas", .add
+        // crear una funcion que dado un indice, y una lista, elimine el elemento con dicho indice
         
+
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+       llenarTabla();
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        
+        this.personas.remove(1);
+        imprimeLista(personas);
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    public void agregarPersona(Persona persona) {
+
+        if(persona.getNombre().length() > 0 && persona.getApellido().length() > 0 && persona.getOcupacion().length() > 0 && persona.getEdad() > 0){
+            this.personas.add(persona);
+            llenarTabla();
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe llenar los campos nombre, apellido, edad y ocupacion");
+        }   
+    }
+
+    // retorna la edad si es valida, sino retorna -1
+    public int esEntero(String edadCadena) { // division por cero, numberFormatException, Exception, -1
+        Integer edadRetorno = -1;
+        try {
+            Integer edad = Integer.parseInt(edadCadena);
+            if ((edad instanceof Integer) && edad != null) {
+                edadRetorno = edad;
+            }
+        } catch (Exception e) {
+            // e.printStackTrace();
+        }finally{
+            return edadRetorno;
+        }
+    }
+    
+    
+    public void imprimeLista(List<Persona> personas){
+        System.out.println("---------------------");
+        if(personas.size() > 0){
+           for(Persona persona : personas){
+               System.out.println(persona.getId() + " - " + persona.getNombre() + " - " + persona.getApellido() + " - " + persona.getEdad() + " - " + persona.getOcupacion());
+           }
+        }
+        System.out.println("----------------------");
+    }
+    
+    public void llenarTabla(){
+        DefaultTableModel tablaPersonas = (DefaultTableModel) jtPersonas.getModel();
+        this.personas.forEach(  persona -> {
+            Object[] fila = new Object[5];
+            fila[0] = persona.getId();
+            fila[1] = persona.getNombre();
+            fila[2] = persona.getApellido();
+            fila[3] = persona.getEdad();
+            fila[4] = persona.getOcupacion();
+            
+            tablaPersonas.addRow(fila);
+            
+        } );
+    }
 
     /**
      * @param args the command line arguments
@@ -158,8 +262,10 @@ public class InterfazDeRegistroDePersonas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jftApellido;
     private javax.swing.JLabel jlNombre;
+    private javax.swing.JTable jtPersonas;
     private javax.swing.JTextField jtfEdad;
     private javax.swing.JTextField jtfNombre;
     private javax.swing.JTextField jtfOcupacion;

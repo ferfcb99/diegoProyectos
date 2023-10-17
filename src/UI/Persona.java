@@ -1,6 +1,8 @@
 package UI;
 
 public class Persona { // DTO - POJO
+    
+    
     private Integer id;
     private String nombre;
     private String apellido;
